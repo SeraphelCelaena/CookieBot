@@ -1,4 +1,4 @@
-// Imports
+// "Imports" idk why import doesnt work
 const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
@@ -13,7 +13,7 @@ const client = new Client({
     ]
 });
 
-// Variables
+// --- Imports Slash Commands --- \\
 client.commands = new Collection();
 const foldersPath = path.join(__dirname, 'commands');
 const commandFolders = fs.readdirSync(foldersPath);
@@ -34,6 +34,11 @@ for (const folder of commandFolders) {
     }
 }
 
+// --- Variables --- \\
+// empty kek
+
+
+// --- BOT FUNCTIONALITY --- \\
 // What the bot does when it is on
 client.once(Events.ClientReady, c => {
     // Says Hi when bot is first launched
@@ -41,6 +46,7 @@ client.once(Events.ClientReady, c => {
 });
 
 client.on(Events.InteractionCreate, async interaction => {
+    // Makes Slash commands Work?
     if (!interaction.isChatInputCommand()) return;
     
     if (!command) {
@@ -60,5 +66,5 @@ client.on(Events.InteractionCreate, async interaction => {
     }
 });
 
-// Discord Login
+// --- DISCORD LOGIN --- \\
 client.login(process.env.DISCORD_TOKEN);
