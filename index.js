@@ -1,9 +1,11 @@
 // "Imports" idk why import doesnt work
 const fs = require('node:fs');
 const path = require('node:path');
-const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
+const { Client, Collection, GatewayIntentBits } = require('discord.js');
 const dotenv = require('dotenv');
 dotenv.config();
+
+const token = process.env.DISCORD_TOKEN;
 
 // Creating the client Class
 const client = new Client({
@@ -39,32 +41,21 @@ for (const folder of commandFolders) {
 
 
 // --- BOT FUNCTIONALITY --- \\
-// What the bot does when it is on
-client.once(Events.ClientReady, c => {
-    // Says Hi when bot is first launched
-    console.log(`Cookie Sez Mew! Logged in as ${c.user.tag}`);
-});
+// Import Events
+const eventsPath = path.join(__dirname, 'events');
+const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
 
-client.on(Events.InteractionCreate, async interaction => {
-    // Makes Slash commands Work?
-    if (!interaction.isChatInputCommand()) return;
-    
-    if (!command) {
-        console.error(`No command matching ${interaction.commandName} was found.`)
-        return;
-    }
+for (const file of eventFiles) {
+    const filePath = path.join(eventsPath, file);
+    const event = require(filePath);
 
-    try {
-        await command.execute(interaction);
-    } catch (error) {
-        console.error(error);
-        if (interaction.replied || interaction.deferred) {
-            await interaction.followUp({content: 'There was an error while executing this command!', ephemeral: true});
-        } else {
-            await interaction.reply({content: 'There was an error while executing this command!', ephemeral: true});
-        }
+    if (event.once) {
+        client.once(event.name, (...args) => event.execute(...args));
+    } else {
+        client.on(event.name, (...args) => event.execute(...args));
     }
-});
+}
+
 
 // --- DISCORD LOGIN --- \\
-client.login(process.env.DISCORD_TOKEN);
+client.login(token);
