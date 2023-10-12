@@ -2,10 +2,8 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, GatewayIntentBits } = require('discord.js');
-const dotenv = require('dotenv');
-dotenv.config();
-
-const token = process.env.DISCORD_TOKEN;
+const mongoose = require('mongoose');
+require('dotenv').config();
 
 // Creating the client Class
 const client = new Client({
@@ -58,4 +56,4 @@ for (const file of eventFiles) {
 
 
 // --- DISCORD LOGIN --- \\
-client.login(token);
+client.login(process.env.DISCORD_TOKEN);
