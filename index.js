@@ -1,22 +1,22 @@
 // "Imports" idk why import doesnt work
-const { Client, Collection, GatewayIntentBits } = require('discord.js');
+const Discord = require('discord.js');
 const mongoose = require('mongoose');
 require('dotenv').config();
 
 // Creating the client Class
-const client = new Client({
+const client = new Discord.Client({
 	intents: [
-		GatewayIntentBits.Guilds,
-		GatewayIntentBits.GuildMessages
+		Discord.GatewayIntentBits.Guilds,
+		Discord.GatewayIntentBits.GuildMessages
 	]
 });
 
 // --- Collections --- \\
-client.commands = new Collection();
-client.events = new Collection();
+client.commands = new Discord.Collection();
+client.events = new Discord.Collection();
 
-['commandHandler', 'eventHandler'].forEach(handler => {
-	require(handler + '.js')(client, Discord);
+['eventHandler'].forEach(handler => {
+	require(`./handlers/${handler}.js`)(client, Discord);
 })
 
 // --- DISCORD LOGIN --- \\
