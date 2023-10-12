@@ -1,4 +1,5 @@
 // "Imports" idk why import doesnt work
+const fs = require('fs');
 const Discord = require('discord.js');
 const mongoose = require('mongoose');
 require('dotenv').config();
@@ -18,9 +19,10 @@ client.commands = new Discord.Collection();
 client.events = new Discord.Collection();
 
 // --- Handler --- \\
-['commandHandler','eventHandler'].forEach(handler => {
-	require(`./handlers/${handler}.js`)(client, Discord);
-});
+const handlerFiles = fs.readdirSync('./handlers').filter(file => file.endsWith('.js'));
+for (const handler of handlerFiles) {
+	require(`./handlers/${handler}`)(client, Discord);
+}
 
 // --- Mongoose --- \\
 mongoose
