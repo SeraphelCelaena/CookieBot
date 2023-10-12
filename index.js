@@ -7,7 +7,9 @@ require('dotenv').config();
 const client = new Discord.Client({
 	intents: [
 		Discord.GatewayIntentBits.Guilds,
-		Discord.GatewayIntentBits.GuildMessages
+		Discord.GatewayIntentBits.GuildMessages,
+		Discord.GatewayIntentBits.MessageContent,
+		Discord.GatewayIntentBits.GuildMembers
 	]
 });
 
@@ -15,10 +17,12 @@ const client = new Discord.Client({
 client.commands = new Discord.Collection();
 client.events = new Discord.Collection();
 
-['eventHandler'].forEach(handler => {
+// --- Handler --- \\
+['commandHandler','eventHandler'].forEach(handler => {
 	require(`./handlers/${handler}.js`)(client, Discord);
 });
 
+// --- Mongoose --- \\
 mongoose
 	.connect(process.env.MONGODB_SRV)
 	.then(() => {
