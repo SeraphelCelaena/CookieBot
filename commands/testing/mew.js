@@ -4,6 +4,6 @@ module.exports = {
 	permissions: [],
 	description: "Cookie Sez Mew!",
 	async execute(client, message, cmd, args, Discord) {
-		message.channel.send("Mew!");
+		message.reply("Mew! <:CookieLoveRed:1131049937505886320>")
 	}
 }
