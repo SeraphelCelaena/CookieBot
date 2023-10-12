@@ -17,7 +17,14 @@ client.events = new Discord.Collection();
 
 ['eventHandler'].forEach(handler => {
 	require(`./handlers/${handler}.js`)(client, Discord);
-})
+});
+
+mongoose
+	.connect(process.env.MONGODB_SRV)
+	.then(() => {
+		console.log("Connected to the database!");
+	})
+	.catch((error) => console.log(error));
 
 // --- DISCORD LOGIN --- \\
 client.login(process.env.DISCORD_TOKEN);
