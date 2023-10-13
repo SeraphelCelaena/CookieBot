@@ -12,7 +12,7 @@ module.exports = async (Discord, client, message) => {
 	}
 
 	try {
-		command.execute(client, message, cmd, args, Discord);
+		command.execute(client, message, command, arguments, Discord);
 	} catch (error) {
 		message.reply("There was an error trying to execute this command!");
 		console.log(error);
