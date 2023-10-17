@@ -6,17 +6,16 @@ module.exports = {
 	permissions: [],
 	description: 'Adds a quote to the database',
 	async execute(client, message, commandName, arguments, Discord) {
-		console.log(`client: ${client}\nmessage: ${message}\ncommand: ${cmds}\narguments: ${args}\nDiscord: ${Discord}\n`);
-
-		let quoteContent = args.join(" ");
-
 		try {
-			let command = await quoteModel.create({
+			let quote = await quoteModel.create({
 				guildID: message.guild.id,
-				quoteNumber: await quoteModel.find({guildID: message.guild.id}).estimatedDocumentCount(),
-				quoteContent: quoteContent
+				quoteNumber: await quoteModel.find({guildID: message.guild.id}).estimatedDocumentCount() + 1,
+				quoteContent: arguments.join(" ")
 			});
-			quoteModel.save();
+			quote.save();
+
+			message.channel.send(`Added Quote: ${arguments.join(" ")}`);
+
 		} catch(error) {
 			console.log(`[Error] addquote: ${error}`);
 		}
