@@ -6,5 +6,5 @@ const quoteSchema = new mongoose.Schema({
     quoteContent: {type: String, require: true}
 });
 
-const quoteModel = mongoose.model('quotes', quoteSchema);
-module.exports = quoteModel;
+const model = mongoose.model('quotes', quoteSchema);
+module.exports = model;
