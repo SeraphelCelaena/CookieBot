@@ -6,12 +6,12 @@ module.exports = {
 	permissions: [],
 	description: 'Adds a quote to the database',
 	async execute(client, message, commandName, arguments, Discord) {
+		if (arguments.join(" ").trim() == "" || arguments == null) {
+			message.channel.send("There is nothing to quote!");
+			return;
+		}
+		
 		try {
-			if (arguments.join(" ").trim() == "" || arguments == null) {
-				message.channel.send("There is nothing to quote!");
-				return;
-			}
-
 			let quote = await quoteModel.create({
 				guildID: message.guild.id,
 				quoteNumber: await quoteModel.where({guildID: message.guild.id}).countDocuments() + 1,
@@ -22,7 +22,7 @@ module.exports = {
 			message.channel.send(`Added Quote: ${arguments.join(" ")}`);
 
 		} catch(error) {
-			console.log(`[Error] addquote: ${error}`);
+			console.log(`[Error] addquote - ${error}`);
 		}
 	}
 }
