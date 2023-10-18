@@ -5,6 +5,7 @@ module.exports = async (Discord, client, message) => {
 	if (!message.content.startsWith(prefix) || message.author.bot) return;
 	const arguments = message.content.slice(prefix.length).split(/ +/);
 	const commandName = arguments.shift().toLowerCase();
+	if (commandName == null || commandName.trim() == "") return;
 
 	const command = client.commands.get(commandName) || client.commands.find(a => a.aliases && a.aliases.includes(commandName));
 	if (!command) {
