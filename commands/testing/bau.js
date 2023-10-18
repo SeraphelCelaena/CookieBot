@@ -7,5 +7,5 @@ module.exports = {
     message.reply(
       "WOOF BAU! (means hello) <:CookieLoveRed:1131049937505886320>"
     );
-  },
+  }
 };
