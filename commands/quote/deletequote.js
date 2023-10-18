@@ -1,23 +1,27 @@
+const quoteModel = require('../../models/quoteModel.js');
+
 module.exports = {
 	name: 'deletequote',
 	aliases: ['delquote'],
 	permisssions: [],
 	description: 'Deletes a quote',
 	async execute(client, message, commandName, arguments, Discord) {
-		console.log(arguments[0])
-		console.log(parseInt(arguments[0]));
-		console.log(Math.sign(arguments[0]) != 1)
+		quoteCount = await quoteModel.where({guildID: message.guild.id}).countDocuments();
+		quoteNumber = arguments[0];
+
+		console.log(quoteCount);
+		console.log(quoteNumber);
 
 		if (arguments.join(" ").trim() == "" || arguments == null) {
 			message.channel.send("Specify a quote to delete!");
 			return;
-		} else if (Number.isInteger(parseInt(arguments[0])) && Math.sign(arguments[0]) != 1) {
+		} else if (Number.isInteger(parseInt(quoteNumber)) && Math.sign(quoteNumber) != 1) {
 			message.channel.send("Cannot delete 0/negative quotes!");
 			return
-		} else if (typeof arguments[0] == "string" && !Number.isInteger(parseInt(arguments[0]))) {
+		} else if (typeof quoteNumber == "string" && !Number.isInteger(parseInt(quoteNumber))) {
 			message.channel.send("Don't send string")
 		} else {
-			message.channel.send(`Chomping Quote #${arguments[0]}`)
+			message.channel.send(`Chomping Quote #${quoteNumber}`)
 		}
 
 		try {
