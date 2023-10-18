@@ -3,7 +3,7 @@ const quoteModel = require('../../models/quoteModel.js');
 module.exports = {
 	name: 'deletequote',
 	aliases: ['delquote'],
-	permisssions: [],
+	permissions: [],
 	description: 'Deletes a quote',
 	async execute(client, message, commandName, arguments, Discord) {
 		quoteCount = await quoteModel.where({guildID: message.guild.id}).countDocuments();
