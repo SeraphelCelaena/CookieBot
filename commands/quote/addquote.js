@@ -9,7 +9,7 @@ module.exports = {
 		try {
 			if (arguments.join(" ").trim() == "" || arguments == null) {
 				message.channel.send("There is nothing to quote!");
-				return
+				return;
 			}
 
 			let quote = await quoteModel.create({
