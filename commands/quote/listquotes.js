@@ -18,14 +18,13 @@ module.exports = {
 			if (quoteArgument == null || quoteArgument == "" || quoteArgument == 0) quoteArgument = 1;
 			quoteArgument = parseInt(quoteArgument);
 			if (Math.sign(quoteArgument) < 0) quoteArgument += quotesPages + 1;
-			if (0 > quoteArgument || quoteArgument > quotesPages ) return message.channel.send("Invalid page number!");
+			if (0 > quoteArgument || quoteArgument > quotesPages ) return message.channel.send("Error 404: Page not found! <:marchcamera:1102793347132829736>");
 
 			const remaindingQuotes = quoteArgument == quotesPages ? quotesCount % showAmount : showAmount;
 			for (let i = 0; i < remaindingQuotes; i++) {
 				const quoteTemp = await quoteModel.where({guildID: message.guild.id, quoteNumber: (showAmount * (quoteArgument - 1)) + i + 1}).findOne();
 				quoteEmbedDescription += `#${quoteTemp.quoteNumber} - "${quoteTemp.quoteContent}"\n`;
 			}
-
 
 			quoteEmbed
 				.setDescription(quoteEmbedDescription)
