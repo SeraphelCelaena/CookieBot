@@ -2,15 +2,12 @@ const quoteModel = require('../../models/quoteModel.js');
 
 module.exports = {
 	name: 'deletequote',
-	aliases: ['delquote'],
+	aliases: ['delquote', 'removequote'],
 	permissions: [],
 	description: 'Deletes a quote',
 	async execute(client, message, commandName, arguments, Discord) {
 		quoteCount = await quoteModel.where({guildID: message.guild.id}).countDocuments();
 		quoteNumber = arguments[0];
-
-		console.log(quoteCount);
-		console.log(quoteNumber);
 
 		if (arguments.join(" ").trim() == "" || arguments == null) {
 			message.channel.send("Specify a quote to delete!");
