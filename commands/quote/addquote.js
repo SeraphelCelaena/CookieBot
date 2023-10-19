@@ -6,11 +6,13 @@ module.exports = {
 	permissions: [],
 	description: 'Adds a quote to the database',
 	async execute(client, message, commandName, arguments, Discord) {
+		let maxLength = 1000;
+
 		if (arguments.join(" ").trim() == "" || arguments == null) {
 			message.channel.send("There is nothing to quote!");
 			return;
-		} else if (arguments.join(" ").length > 1000) {
-			message.channel.send("Too Long :(");
+		} else if (arguments.join(" ").length > maxLength) {
+			message.channel.send(`Too Long: String must be shorter than ${maxLength}, yours is ${arguments.join(" ").length}`);
 			return;
 		}
 
