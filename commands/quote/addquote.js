@@ -9,6 +9,9 @@ module.exports = {
 		if (arguments.join(" ").trim() == "" || arguments == null) {
 			message.channel.send("There is nothing to quote!");
 			return;
+		} else if (arguments.join(" ").length > 1000) {
+			message.channel.send("Too Long :(");
+			return;
 		}
 
 		quoteNumber = await quoteModel.where({guildID: message.guild.id}).countDocuments() + 1;
