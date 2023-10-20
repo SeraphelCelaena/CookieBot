@@ -31,7 +31,7 @@ module.exports = {
 			const remaindingQuotes = quoteArgument == quotesPages ? quotesCount % showAmount : showAmount;
 			for (let i = 0; i < remaindingQuotes; i++) {
 				const quoteTemp = await quoteModel.where({guildID: message.guild.id, quoteNumber: (showAmount * (quoteArgument - 1)) + i + 1}).findOne();
-				quoteEmbedDescription += `#${quoteTemp.quoteNumber} - "${quoteTemp.quoteContent}"\n`;
+				quoteEmbedDescription += `#${quoteTemp.quoteNumber} - ${quoteTemp.quoteContent}\n`;
 			}
 
 			// makes the embed to send
