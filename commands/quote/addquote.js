@@ -11,7 +11,8 @@ module.exports = {
 		if (arguments.join(" ").trim() == "" || arguments == null) {
 			message.channel.send("There is nothing to quote!");
 			return;
-		} else if (arguments.join(" ").length > maxLength) {
+		}
+		else if (arguments.join(" ").length > maxLength) {
 			message.channel.send(`Too Long: String must be shorter than ${maxLength}, yours is ${arguments.join(" ").length}`);
 			return;
 		}

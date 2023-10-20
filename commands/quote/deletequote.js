@@ -12,10 +12,12 @@ module.exports = {
 		if (arguments.join(" ").trim() == "" || arguments == null) {
 			message.channel.send("Specify a quote to delete!");
 			return;
-		} else if (Number.isInteger(parseInt(quoteNumber)) && Math.sign(quoteNumber) != 1) {
+		}
+		else if (Number.isInteger(parseInt(quoteNumber)) && Math.sign(quoteNumber) != 1) {
 			message.channel.send("Cannot delete 0/negative quotes!");
 			return;
-		} else if (typeof quoteNumber == "string" && !Number.isInteger(parseInt(quoteNumber))) {
+		}
+		else if (typeof quoteNumber == "string" && !Number.isInteger(parseInt(quoteNumber))) {
 			message.channel.send("Don't send string!")
 			return;
 		}
@@ -29,7 +31,8 @@ module.exports = {
 
 				if (quoteTemp.quoteNumber == quoteDelete.quoteNumber) {
 					await quoteModel.findOneAndDelete({guildID: quoteTemp.guildID, quoteNumber: quoteTemp.quoteNumber});
-				} else if (quoteTemp.quoteNumber > quoteNumber) {
+				}
+				else if (quoteTemp.quoteNumber > quoteNumber) {
 					await quoteModel.where({guildID: quoteTemp.guildID, quoteNumber: quoteTemp.quoteNumber}).updateOne({}, {}).set({quoteNumber: quoteTemp.quoteNumber - 1});
 				}
 			}
