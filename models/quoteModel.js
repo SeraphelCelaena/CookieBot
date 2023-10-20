@@ -3,9 +3,9 @@ const mongoose = require('mongoose');
 
 // Creating the Schema
 const quoteSchema = new mongoose.Schema({
-    guildID: {type: String, require: true},
-    quoteNumber: {type: Number, require: true},
-    quoteContent: {type: String, require: true}
+	guildID: {type: String, require: true},
+	quoteNumber: {type: Number, require: true},
+	quoteContent: {type: String, require: true}
 });
 
 // export the model
