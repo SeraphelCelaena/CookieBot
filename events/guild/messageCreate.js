@@ -11,6 +11,7 @@ module.exports = async (Discord, client, message) => {
 
 	// if a user just sends a ! then nothing
 	if (commandName == null || commandName.trim() == "") return;
+	if (commandName[0] == '!') return;
 
 	// if the command does not exist then sends an error
 	const command = client.commands.get(commandName) || client.commands.find(a => a.aliases && a.aliases.includes(commandName));
