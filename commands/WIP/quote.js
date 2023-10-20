@@ -6,9 +6,10 @@ module.exports = {
 	permissions: [],
 	description: "shows quotes",
 	async execute(client, message, commandName, arguments, Discord) {
-		let quoteSend;
+		let quoteArgument = arguments[0];
 		const quoteCount = await quoteModel.where({guildID: message.guild.id}).countDocuments();
 		const randomNumber = getRandomInteger(0, quoteCount);
+		let quoteSend;
 		console.log(randomNumber);
 
 		if (arguments[0] == 0 || ((arguments == null || arguments.join('').trim() == "") && randomNumber == 0)) {
@@ -16,6 +17,14 @@ module.exports = {
 		}
 		else if (arguments == null || arguments.join('').trim() == "") {
 			quoteSend = await quoteModel.where({guildID: message.guild.id, quoteNumber: randomNumber}).findOne();
+		}
+		else if (Number.isInteger(parseInt(quoteArgument))) {
+			quoteArgument = parseInt(quoteArgument);
+			if (Math.sign(quoteArgument) < 0) quoteArgument += quoteCount + 1;
+			quoteSend = await quoteModel.where({guildID: message.guild.id, quoteNumber: quoteArgument}).findOne();
+		}
+		else if (typeof quoteNumber == "string" && !Number.isInteger(parseInt(quoteNumber))) {
+			return message.channel.send("Do not send a string!");
 		}
 
 		message.channel.send(`#${quoteSend.quoteNumber}: ${quoteSend.quoteContent}`);
