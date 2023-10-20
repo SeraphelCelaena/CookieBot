@@ -18,7 +18,7 @@ const client = new Discord.Client({
 client.commands = new Discord.Collection();
 client.events = new Discord.Collection();
 
-// --- Handler --- \\
+// --- Handler of Handlers --- \\
 const handlerFiles = fs.readdirSync('./handlers').filter(file => file.endsWith('.js'));
 for (const handler of handlerFiles) {
 	require(`./handlers/${handler}`)(client, Discord);
