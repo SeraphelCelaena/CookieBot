@@ -31,5 +31,8 @@ module.exports = {
 				.setTitle(`Quotes - Page ${quoteArgument}/${quotesPages}`);
 			message.channel.send({embeds: [quoteEmbed]});
 		}
+		else if (typeof quoteNumber == "string" && !Number.isInteger(parseInt(quoteNumber))) {
+			message.channel.send("Do not send a string!");
+		}
 	}
 }
