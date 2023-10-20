@@ -9,12 +9,10 @@ module.exports = {
 		let maxLength = 1000;
 
 		if (arguments.join(" ").trim() == "" || arguments == null) {
-			message.channel.send("There is nothing to quote!");
-			return;
+			return message.channel.send("There is nothing to quote!");
 		}
 		else if (arguments.join(" ").length > maxLength) {
-			message.channel.send(`Too Long: String must be shorter than ${maxLength}, yours is ${arguments.join(" ").length}`);
-			return;
+			return message.channel.send(`Too Long: String must be shorter than ${maxLength}, yours is ${arguments.join(" ").length}`);
 		}
 
 		quoteNumber = await quoteModel.where({guildID: message.guild.id}).countDocuments() + 1;

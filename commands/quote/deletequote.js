@@ -10,16 +10,13 @@ module.exports = {
 		quoteNumber = arguments[0];
 
 		if (arguments.join(" ").trim() == "" || arguments == null) {
-			message.channel.send("Specify a quote to delete!");
-			return;
+			return message.channel.send("Specify a quote to delete!");
 		}
 		else if (Number.isInteger(parseInt(quoteNumber)) && Math.sign(quoteNumber) != 1) {
-			message.channel.send("Cannot delete 0/negative quotes!");
-			return;
+			return message.channel.send("Cannot delete 0/negative quotes!");
 		}
 		else if (typeof quoteNumber == "string" && !Number.isInteger(parseInt(quoteNumber))) {
-			message.channel.send("Don't send string!")
-			return;
+			return message.channel.send("Don't send string!")
 		}
 
 		try {
