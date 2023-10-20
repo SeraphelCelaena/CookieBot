@@ -10,7 +10,6 @@ module.exports = {
 		const quoteCount = await quoteModel.where({guildID: message.guild.id}).countDocuments();
 		const randomNumber = getRandomInteger(0, quoteCount);
 		let quoteSend;
-		console.log(randomNumber);
 
 		if (arguments[0] == 0 || ((arguments == null || arguments.join('').trim() == "") && randomNumber == 0)) {
 			return message.channel.send('#0: "Mew!" -Cookie')
