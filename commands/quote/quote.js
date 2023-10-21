@@ -22,6 +22,10 @@ module.exports = {
 		else if (arguments == null || arguments.join('').trim() == "") {
 			quoteSend = await quoteModel.where({guildID: message.guild.id, quoteNumber: randomNumber}).findOne();
 		}
+		// if quoteArgument is too big or too small it sends a warning
+		else if (parseInt(quoteArgument) > quoteCount || parseInt(quoteArgument) < -quoteCount) {
+			return message.channel.send("Invalid quote number");
+		}
 		// if it gives a number or negative number it sends the specified quote
 		else if (Number.isInteger(parseInt(quoteArgument))) {
 			quoteArgument = parseInt(quoteArgument);
