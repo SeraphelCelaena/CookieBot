@@ -4,6 +4,6 @@ module.exports = {
 	permissions: [],
 	description: 'Adds a custom command.',
 	async execute(client, message, commandName, arguments, Discord) {
-		message.channel.send(`${commandName} is work in progress.`);
+		message.channel.send(`${commandName} is planned to be implemented.`);
 	}
 }
