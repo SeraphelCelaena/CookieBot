@@ -1,5 +1,6 @@
 // imports
 const quoteModel = require('../../models/quoteModel.js');
+require('dotenv').config();
 
 // exports addquote
 module.exports = {
@@ -8,16 +9,13 @@ module.exports = {
 	permissions: [],
 	description: 'Adds a quote to the database',
 	async execute(client, message, commandName, arguments, Discord) {
-		// variables
-		let maxLength = 1000;
-
 		// if sends nothing then nothing happens and warns user
 		if (arguments.join(" ").trim() == "" || arguments == null) {
 			return message.channel.send("There is nothing to quote!");
 		}
 		// if the quote is too long then warns user
-		else if (arguments.join(" ").length > maxLength) {
-			return message.channel.send(`Too Long: String must be shorter than ${maxLength}, yours is ${arguments.join(" ").length}`);
+		else if (arguments.join(" ").length > process.env.MAX_QUOTE_LENGTH) {
+			return message.channel.send(`Too Long: String must be shorter than ${process.env.MAX_QUOTE_LENGTH}, yours is ${arguments.join(" ").length}`);
 		}
 
 		// temporary total quote count
