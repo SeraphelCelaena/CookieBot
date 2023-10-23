@@ -1,5 +1,6 @@
 // imports
 require('dotenv').config();
+const customCommands = require('../../models/customCommandModel.js');
 
 module.exports = async (Discord, client, message) => {
 	const prefix = process.env.PREFIX;
@@ -12,6 +13,12 @@ module.exports = async (Discord, client, message) => {
 	// if a user just sends a ! then nothing
 	if (commandName == null || commandName.trim() == "") return;
 	if (commandName[0] == '!') return;
+
+	// Checks for custom commands
+	const customCommand = await customCommands.where({guildID: message.guild.id, customCommandName: commandName}).findOne();
+	if (customCommand) {
+		return message.channel.send(customCommand.customCommandResponse);
+	}
 
 	// if the command does not exist then sends an error
 	const command = client.commands.get(commandName) || client.commands.find(a => a.aliases && a.aliases.includes(commandName));
