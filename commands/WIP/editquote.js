@@ -1,5 +1,6 @@
 // imports
 const quoteModel = require('../../models/quoteModel.js');
+require('dotenv').config();
 
 module.exports = {
 	name: 'editquote',
@@ -18,11 +19,20 @@ module.exports = {
 		}
 		// if sends a 0 or negative number then gives warning
 		else if (Number.isInteger(parseInt(quoteNumber)) && Math.sign(quoteNumber) != 1) {
-			return message.channel.send("Cannot delete 0/negative quotes!");
+			return message.channel.send("Cannot edit 0/negative quotes!");
 		}
 		// if sends a string then gives warning
 		else if (typeof quoteNumber == "string" && !Number.isInteger(parseInt(quoteNumber))) {
-			return message.channel.send("Don't send string!")
+			return message.channel.send("Select a valid quote!")
 		}
+		// if does not send what to replace with then warning
+		else if (!quoteEdit) {
+			return message.channel.send("Specify a response for the command!");
+		}
+		// if too long then yells at user
+		else if (arguments.join(" ").length > process.env.MAX_QUOTE_LENGTH) {
+			return message.channel.send(`Too Long: String must be shorter than ${process.env.MAX_QUOTE_LENGTH}, yours is ${arguments.join(" ").length}`);
+		}
+		message.channel.send('think it guud');
 	}
 }
