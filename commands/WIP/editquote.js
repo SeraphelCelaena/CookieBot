@@ -11,7 +11,7 @@ module.exports = {
 		// variables
 		const quoteCount = await quoteModel.where({guildID: message.guild.id}).countDocuments();
 		const quoteNumber = arguments[0];
-		const quoteEdit = arguments.slice(1).join(" ");
+		const quoteEditContent = arguments.slice(1).join(" ");
 
 		// if sends nothin then gives warning
 		if (quoteNumber == null || quoteNumber.trim() == "") {
@@ -26,13 +26,27 @@ module.exports = {
 			return message.channel.send("Select a valid quote!")
 		}
 		// if does not send what to replace with then warning
-		else if (!quoteEdit) {
+		else if (!quoteEditContent) {
 			return message.channel.send("Specify a response for the command!");
 		}
 		// if too long then yells at user
 		else if (arguments.join(" ").length > process.env.MAX_QUOTE_LENGTH) {
 			return message.channel.send(`Too Long: String must be shorter than ${process.env.MAX_QUOTE_LENGTH}, yours is ${arguments.join(" ").length}`);
 		}
-		message.channel.send('think it guud');
+
+		try {
+			// attempts to take the quote from database, if not found yells at user.
+			const quoteEdit = await quoteModel.where({guildID: message.guild.id, quoteNumber: quoteNumber}).findOne();
+			if (!quoteEdit) return message.channel.send("Enter a valid quote!");
+
+			// edits quote in database
+			await quoteModel.where({guildID: quoteEdit.guildID, quoteNumber: quoteEdit.quoteNumber}).updateOne({}, {}).set({quoteContent: quoteEditContent})
+
+			// success message!
+			message.channel.send(`Edited quote #${quoteEdit.quoteNumber}: ${quoteEditContent}`);
+
+		} catch(error) {
+			console.log(`[ERROR] editquote - ${error}`)
+		}
 	}
 }
