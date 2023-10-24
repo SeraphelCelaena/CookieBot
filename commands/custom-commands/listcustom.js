@@ -11,10 +11,23 @@ module.exports = {
 		// variables
 		const customEmbed = new EmbedBuilder();
 		const customCommandsList = await customCommandModel.where({guildID: message.guild.id}).find();
+		let customEmbedDescription = '';
 		
+		// Starts the Embed
+		customEmbed
+			.setTitle("Custom Commands")
+			.setColor(0xFF1199);
+
 		// loops through the custom command list
 		for (const command of customCommandsList) {
-			
+			customEmbedDescription += `${command.timesUsed} - !${command.customCommandName}\n`
 		}
+
+		// Finish the embed
+		customEmbed
+			.setDescription(customEmbedDescription);
+
+		// Sends the embed
+		message.channel.send({embeds: [customEmbed]});
 	}
 }
