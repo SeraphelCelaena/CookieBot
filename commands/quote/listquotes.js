@@ -37,6 +37,7 @@ module.exports = {
 			// makes the embed to send
 			quoteEmbed
 				.setDescription(quoteEmbedDescription)
+				.setColor(0xFF1199)
 				.setTitle(`Quotes - Page ${quoteArgument}/${quotesPages}`);
 
 			// sends the embed
