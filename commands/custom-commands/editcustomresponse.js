@@ -1,6 +1,6 @@
 module.exports = {
-	name: 'editcustom',
-	aliases: ['editcommand'],
+	name: 'editcustomresponse',
+	aliases: ['editcommandresponse'],
 	permissions: [],
 	description: 'Edits a custom command.',
 	async execute(client, message, commandName, arguments, Discord) {
