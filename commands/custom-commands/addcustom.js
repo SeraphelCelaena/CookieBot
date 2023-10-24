@@ -1,5 +1,5 @@
 // imports
-const customCommands = require("../../models/customCommandModel.js");
+const customCommandModel = require("../../models/customCommandModel.js");
 require('dotenv').config();
 
 module.exports = {
@@ -26,13 +26,13 @@ module.exports = {
 
 		// Try to find duplicates
 		try {
-			const findCustomCommand = await customCommands.where({guildID: message.guild.id, customCommandName: commandNameSet}).findOne();
+			const findCustomCommand = await customCommandModel.where({guildID: message.guild.id, customCommandName: commandNameSet}).findOne();
 			if (findCustomCommand) {
 				return message.channel.send(`You already have command: ${commandNameSet}`);
 			}
 			// Upload quote to database
 			else {
-				let command = await customCommands.create({
+				let command = await customCommandModel.create({
 					guildID: message.guild.id,
 					customCommandName: commandNameSet,
 					customCommandResponse: commandResponseSet
