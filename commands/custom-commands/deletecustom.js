@@ -1,6 +1,6 @@
 module.exports = {
 	name: 'deletecustom',
-	aliases: ['deletecommand'],
+	aliases: ['deletecommand', 'removecustom', 'removecommand', 'delcustom', 'delcommand'],
 	permissions: [],
 	description: '[PLANNED] Deletes custom command.',
 	async execute(client, message, commandName, arguments, Discord) {

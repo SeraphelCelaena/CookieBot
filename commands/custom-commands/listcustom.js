@@ -1,6 +1,6 @@
 module.exports = {
 	name: 'listcustom',
-	aliases: [],
+	aliases: ['listcommands'],
 	permissions: [],
 	description: '[PLANNED] Lists the custom commands.',
 	async execute(client, message, commandName, arguments, Discord) {
