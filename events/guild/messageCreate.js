@@ -17,6 +17,7 @@ module.exports = async (Discord, client, message) => {
 	// Checks for custom commands
 	const customCommand = await customCommands.where({guildID: message.guild.id, customCommandName: commandName}).findOne();
 	if (customCommand) {
+		await customCommands.where({guildID: message.guild.id, customCommandName: commandName}).updateOne({}, {}).set({timesUsed: customCommand.timesUsed + 1});
 		return message.channel.send(customCommand.customCommandResponse);
 	}
 
