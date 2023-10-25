@@ -13,7 +13,6 @@ module.exports = {
 		// checks and balances
 		if (!commandNameRemove) return message.channel.send("Specify a command to remove!");
 
-
 		// tries to find command in custom command database, if not yells at user
 		const commandRemove = await customCommandModel.where({guildID: message.guild.id, customCommandName: commandNameRemove.toLowerCase()}).findOne();
 		if (!commandRemove) return message.channel.send('Could not find command to delete');
