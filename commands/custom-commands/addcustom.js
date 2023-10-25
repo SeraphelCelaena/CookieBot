@@ -1,4 +1,5 @@
 // imports
+const fs = require('fs');
 const customCommandModel = require("../../models/customCommandModel.js");
 require('dotenv').config();
 
@@ -24,12 +25,25 @@ module.exports = {
 			return message.channel.send(`Too Long: String must be shorter than ${process.env.MAX_QUOTE_LENGTH}, yours is ${commandResponseSet.length}`)
 		}
 
+		// makes the thing consistent
 		commandNameSet = commandNameSet.toLowerCase();
+
+		// "real" command finder
+		const commandsFolder = fs.readdirSync('./commands');
+		let realCommands = [];
+		for (const folder of commandsFolder) {
+			const commandFiles = fs.readdirSync(`./commands/${folder}`);
+			if (!commandFiles.length == 0) {
+				for (const file of commandFiles) {
+					realCommands.push(file);
+				}
+			}
+		}
 
 		// Try to find duplicates
 		try {
 			const findCustomCommand = await customCommandModel.where({guildID: message.guild.id, customCommandName: commandNameSet}).findOne();
-			if (findCustomCommand) {
+			if (findCustomCommand || realCommands.includes(`${commandNameSet}.js`)) {
 				return message.channel.send(`You already have command: ${commandNameSet}`);
 			}
 			// Upload quote to database
