@@ -9,7 +9,7 @@ module.exports = {
 	description: 'Adds a custom command.',
 	async execute(client, message, commandName, arguments, Discord) {
 		// variables
-		const commandNameSet = arguments[0].toLowerCase();
+		const commandNameSet = arguments[0];
 		const commandResponseSet = arguments.slice(1).join(' ');
 
 		// Checks and balances
@@ -23,6 +23,8 @@ module.exports = {
 		else if (commandResponseSet.length > process.env.MAX_QUOTE_LENGTH || commandNameSet.length > process.env.MAX_QUOTE_LENGTH) {
 			return message.channel.send(`Too Long: String must be shorter than ${process.env.MAX_QUOTE_LENGTH}, yours is ${commandResponseSet.length}`)
 		}
+
+		commandNameSet = commandNameSet.toLowerCase();
 
 		// Try to find duplicates
 		try {
