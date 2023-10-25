@@ -20,7 +20,7 @@ module.exports = {
 			const commandFiles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith('.js'));
 			let commandsDescription = '';
 
-			if (!commandFiles.length == 0 && (!secretFolders.includes(folder) || !commandFiles.includes('dummy.js'))) {
+			if (!commandFiles.length == 0 && !secretFolders.includes(folder) && !commandFiles.includes('dummy.js')) {
 				// loops through the files
 				for (const file of commandFiles) {
 					const command = require(`../${folder}/${file}`);
