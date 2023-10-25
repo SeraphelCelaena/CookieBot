@@ -9,7 +9,7 @@ module.exports = {
 	description: 'Adds a custom command.',
 	async execute(client, message, commandName, arguments, Discord) {
 		// variables
-		const commandNameSet = arguments[0];
+		let commandNameSet = arguments[0];
 		const commandResponseSet = arguments.slice(1).join(' ');
 
 		// Checks and balances
