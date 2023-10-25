@@ -6,7 +6,7 @@ module.exports = {
 	name: 'listcustom',
 	aliases: ['listcommands', 'customcommands'],
 	permissions: [],
-	description: '[PLANNED] Lists the custom commands.',
+	description: 'Lists the custom commands.',
 	async execute(client, message, commandName, arguments, Discord) {
 		// variables
 		const customEmbed = new EmbedBuilder();
