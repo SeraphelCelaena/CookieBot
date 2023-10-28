@@ -30,7 +30,7 @@ module.exports = {
 		}
 		// if too long then yells at user
 		else if (arguments.join(" ").length > process.env.MAX_QUOTE_LENGTH) {
-			return message.channel.send(`Too Long: String must be shorter than ${process.env.MAX_QUOTE_LENGTH}, yours is ${arguments.join(" ").length}`);
+			return message.channel.send(`Too Long: String must be shorter than ${process.env.MAX_QUOTE_LENGTH}, yours is ${quoteEditContent.length}`);
 		}
 
 		try {
@@ -44,7 +44,8 @@ module.exports = {
 			// success message!
 			message.channel.send(`Edited quote #${quoteEdit.quoteNumber}: ${quoteEditContent}`);
 
-		} catch(error) {
+		}
+		catch(error) {
 			console.log(`[ERROR] editquote - ${error}`)
 		}
 	}
