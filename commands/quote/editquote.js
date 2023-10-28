@@ -9,7 +9,6 @@ module.exports = {
 	description: 'edits a quote.',
 	async execute(client, message, commandName, arguments, Discord) {
 		// variables
-		const quoteCount = await quoteModel.where({guildID: message.guild.id}).countDocuments();
 		const quoteNumber = arguments[0];
 		const quoteEditContent = arguments.slice(1).join(" ");
 
