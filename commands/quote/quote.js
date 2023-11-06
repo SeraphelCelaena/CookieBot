@@ -1,5 +1,6 @@
 //imports
 const quoteModel = require('../../models/quoteModel.js');
+const getRandomInteger = require('../../functions/random.js');
 
 // exports quotes
 module.exports = {
@@ -40,9 +41,4 @@ module.exports = {
 		// sends quote
 		message.channel.send(`#${quoteSend.quoteNumber}: ${quoteSend.quoteContent}`);
 	}
-}
-
-// how to get a random integer
-function getRandomInteger(min, max) {
-	return Math.floor(Math.random() * (max - min) + min);
 }
