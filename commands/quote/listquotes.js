@@ -45,7 +45,6 @@ module.exports = {
 			try {
 				const collectorFilter = interaction => interaction.user.id == message.author.id;
 				const confirmation = await sentMessage.awaitMessageComponent({filter: collectorFilter, time: 60000});
-				console.log(confirmation);
 
 				if (confirmation.customId === 'Page') {
 					confirmation.deferUpdate();
@@ -56,7 +55,6 @@ module.exports = {
 				}
 			}
 			catch (error) {
-				console.log(error);
 				quoteListMenu.setDisabled(true); // disable the menu if there's an error or the time runs out
 				sentMessage.edit({embeds: [quoteEmbed], components: [row]});
 				continueInteraction = false;
