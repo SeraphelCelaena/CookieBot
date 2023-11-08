@@ -1,6 +1,6 @@
 // imports
 const quoteModel = require("../../models/quoteModel.js");
-const {EmbedBuilder} = require('discord.js');
+const {EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, StringSelectMenuBuilder, StringSelectMenuOptionBuilder} = require('discord.js');
 
 // exports listquotes
 module.exports = {
@@ -18,6 +18,32 @@ module.exports = {
 		// embed
 		const quoteEmbed = new EmbedBuilder();
 		let quoteEmbedDescription = '';
+
+		// Buttons
+		const previousButton = new ButtonBuilder()
+			.setStyle(ButtonStyle.Primary)
+			.setLabel("<<<")
+			.setCustomId("previousButton");
+
+		const nextButton = new ButtonBuilder()
+			.setStyle(ButtonStyle.Primary)
+			.setLabel(">>>")
+			.setCustomId("nextButton");
+		
+		// Select menu
+		const quoteListMenu = new StringSelectMenuBuilder()
+			.setCustomId("Page");
+		
+		for (let i = 1; i <= quotesPages; i++) {
+			const quoteListMenuOption = new StringSelectMenuOptionBuilder()
+				.setLabel(i.toString())
+				.setValue(i.toString());
+			quoteListMenu.addOptions(quoteListMenuOption);
+		}
+
+		// Action row
+		const row = new ActionRowBuilder()
+			.addComponents(quoteListMenu);
 
 		// if sends a number then does the command
 		if (Number.isInteger(parseInt(quoteArgument)) || quoteArgument == null || quoteArgument.trim() == "") {
@@ -41,7 +67,7 @@ module.exports = {
 				.setTitle(`Quotes - Page ${quoteArgument}/${quotesPages}`);
 
 			// sends the embed
-			message.channel.send({embeds: [quoteEmbed]});
+			message.channel.send({embeds: [quoteEmbed], components: [row]});
 		}
 		// if sends a sting then gives the user a warning
 		else if (typeof quoteNumber == "string" && !Number.isInteger(parseInt(quoteNumber))) {
