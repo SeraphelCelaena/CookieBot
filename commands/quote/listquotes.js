@@ -91,24 +91,30 @@ const quotePage = async (pageNumber, quotesPages, showAmount, message, quotesCou
 }
 
 const actionBar = async (quotesPages, pageNumber, showAmount, quotesCount) => {
+	// makes the select menu
 	const quoteListMenu = new StringSelectMenuBuilder()
 		.setCustomId("Page");
 	
 	const remainingQuotes = getRemainingQuotes(quotesPages, quotesPages, showAmount, quotesCount);
 
+	// adds the options to the select menu
 	for (let i = 1; i <= quotesPages; i++) {
 		const quoteListMenuOption = new StringSelectMenuOptionBuilder()
 			.setValue(i.toString());
 		
+		// if last page then shows the remaining quotes
 		if (i == quotesPages) {
 			quoteListMenuOption.setLabel(`${1 + (showAmount * (i - 1))} - ${((i - 1) * showAmount) + remainingQuotes}`);
 		}
+		// if not then does like 1-20, 21-40, etc
 		else {
 			quoteListMenuOption.setLabel(`${1 + (showAmount * (i - 1))} - ${i * showAmount}`);
 		}
-		
+
+		// if the page is the current page then sets it to default
 		if (pageNumber == i) quoteListMenuOption.setDefault(true);
 
+		// adds the option to the select menu
 		quoteListMenu.addOptions(quoteListMenuOption);
 	}
 
@@ -116,5 +122,6 @@ const actionBar = async (quotesPages, pageNumber, showAmount, quotesCount) => {
 }
 
 const getRemainingQuotes = (pageNumber, quotesPages, showAmount, quotesCount) => {
+	// if last page, rteturns last page, if not then showAmount
 	return pageNumber == quotesPages ? quotesCount % showAmount : showAmount;
 }
