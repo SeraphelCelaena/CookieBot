@@ -30,7 +30,7 @@ module.exports = {
 		}
 
 		// Select menu
-		quoteListMenu = await actionBar(quotesPages, quoteArgument);
+		quoteListMenu = await actionBar(quotesPages, quoteArgument, showAmount, quotesCount);
 
 		// Action row
 		const row = new ActionRowBuilder()
@@ -49,7 +49,7 @@ module.exports = {
 				if (confirmation.customId === 'Page') {
 					confirmation.deferUpdate();
 					quoteEmbed = await quotePage(parseInt(confirmation.values[0]), quotesPages, showAmount, message, quotesCount);
-					quoteListMenu = await actionBar(quotesPages, parseInt(confirmation.values[0]));
+					quoteListMenu = await actionBar(quotesPages, parseInt(confirmation.values[0]), showAmount, quotesCount);
 					row.setComponents(quoteListMenu);
 					sentMessage.edit({embeds: [quoteEmbed], components: [row]});
 				}
@@ -73,8 +73,8 @@ const quotePage = async (pageNumber, quotesPages, showAmount, message, quotesCou
 		if (0 > pageNumber || pageNumber > quotesPages ) return message.channel.send("Error 404: Page not found! <:marchcamera:1102793347132829736>"); // if invalid quote page then sends error
 
 		// how to send quotes
-		const remaindingQuotes = pageNumber == quotesPages ? quotesCount % showAmount : showAmount;
-		for (let i = 0; i < remaindingQuotes; i++) {
+		const remainingQuotes = getRemainingQuotes(pageNumber, quotesPages, showAmount, quotesCount);
+		for (let i = 0; i < remainingQuotes; i++) {
 			const quoteTemp = await quoteModel.where({guildID: message.guild.id, quoteNumber: (showAmount * (pageNumber - 1)) + i + 1}).findOne();
 			quoteEmbedDescription += `#${quoteTemp.quoteNumber} - ${quoteTemp.quoteContent}\n`;
 		}
@@ -90,14 +90,22 @@ const quotePage = async (pageNumber, quotesPages, showAmount, message, quotesCou
 	}
 }
 
-const actionBar = async (quotesPages, pageNumber) => {
+const actionBar = async (quotesPages, pageNumber, showAmount, quotesCount) => {
 	const quoteListMenu = new StringSelectMenuBuilder()
 		.setCustomId("Page");
+	
+	const remainingQuotes = getRemainingQuotes(quotesPages, quotesPages, showAmount, quotesCount);
 
 	for (let i = 1; i <= quotesPages; i++) {
 		const quoteListMenuOption = new StringSelectMenuOptionBuilder()
-			.setLabel(i.toString())
 			.setValue(i.toString());
+		
+		if (i == quotesPages) {
+			quoteListMenuOption.setLabel(`${1 + (showAmount * (i - 1))} - ${((i - 1) * showAmount) + remainingQuotes}`);
+		}
+		else {
+			quoteListMenuOption.setLabel(`${1 + (showAmount * (i - 1))} - ${i * showAmount}`);
+		}
 		
 		if (pageNumber == i) quoteListMenuOption.setDefault(true);
 
@@ -105,4 +113,8 @@ const actionBar = async (quotesPages, pageNumber) => {
 	}
 
 	return quoteListMenu;
+}
+
+const getRemainingQuotes = (pageNumber, quotesPages, showAmount, quotesCount) => {
+	return pageNumber == quotesPages ? quotesCount % showAmount : showAmount;
 }
