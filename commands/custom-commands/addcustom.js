@@ -21,8 +21,11 @@ module.exports = {
 			return message.channel.send('Specify a response for the command!')
 		}
 		// Checks to see if string is too long
-		else if (commandResponseSet.length > process.env.MAX_QUOTE_LENGTH || commandNameSet.length > process.env.MAX_QUOTE_LENGTH) {
+		else if (commandResponseSet.length > process.env.MAX_QUOTE_LENGTH) {
 			return message.channel.send(`Too Long: String must be shorter than ${process.env.MAX_QUOTE_LENGTH}, yours is ${commandResponseSet.length}`)
+		}
+		else if (commandNameSet.length > process.env.MAX_QUOTE_LENGTH) {
+			return message.channel.send(`Too Long: String must be shorter than ${process.env.MAX_QUOTE_LENGTH}, yours is ${commandNameSet.length}`)
 		}
 
 		// makes the thing consistent
