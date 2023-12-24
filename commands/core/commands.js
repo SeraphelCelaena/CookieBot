@@ -28,7 +28,12 @@ module.exports = {
 				}
 
 				// adds a field to the embed
-				const folderName = folder[0].toUpperCase() + folder.toString().slice(1);
+				const tempFolderName = folder.split('-');
+				let folderName = '';
+				for (var word of tempFolderName)
+				{
+					folderName += `${word[0].toUpperCase() + word.toString().slice(1)} `;
+				}
 				if (commandsDescription == '') commandsDescription = 'No commands';
 				commandsEmbed.addFields({name: folderName, value: commandsDescription, inline: true});
 			}
