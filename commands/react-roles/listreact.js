@@ -1,5 +1,5 @@
 module.exports = {
-	name: 'dummy',
+	name: 'listreact',
 	aliases: [],
 	permissions: [],
 	description: 'does nothing',
