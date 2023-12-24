@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 
 // creating the schema
 const roleReactSchema = new mongoose.Schema({
-	roleReactID: {type: Number, require: true},
+	roleReactName: {type: Number, require: true},
 	emoji: {type: String, require: true},
 	roleID: {type: String, require: true},
 	messageID: {type: String, require: true}
