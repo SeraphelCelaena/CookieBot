@@ -6,6 +6,7 @@ module.exports = {
 	name: 'editcustomname',
 	aliases: ['editcommandname'],
 	permissions: [],
+	help: '!editcustomname [Command Name] [New Name]',
 	description: 'Edits a custom command name.',
 	async execute(client, message, commandName, arguments, Discord) {
 		// variabled

@@ -6,6 +6,7 @@ module.exports = {
 	name: 'deletequote',
 	aliases: ['delquote', 'removequote'],
 	permissions: [],
+	help: '!deletequote [Quote Number]',
 	description: 'Deletes a quote',
 	async execute(client, message, commandName, arguments, Discord) {
 		// variabled

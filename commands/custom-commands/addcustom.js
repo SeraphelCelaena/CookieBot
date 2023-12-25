@@ -7,6 +7,7 @@ module.exports = {
 	name: 'addcustom',
 	aliases: ['addcommand'],
 	permissions: [],
+	help: '!addcustom [Command Name] [Command Response]',
 	description: 'Adds a custom command.',
 	async execute(client, message, commandName, arguments, Discord) {
 		// variables

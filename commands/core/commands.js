@@ -7,6 +7,7 @@ module.exports = {
 	name: 'commands',
 	aliases: ['cmds', 'fullcmds'],
 	permissions: [],
+	help: '!commands',
 	description: "Shows list of commands",
 	async execute(client, message, commandName, arguments, Discord) {
 		// variables

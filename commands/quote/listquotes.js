@@ -7,6 +7,7 @@ module.exports = {
 	name: 'listquotes',
 	aliases: [],
 	permissions: [],
+	help: '!listquotes <Page Number>',
 	description: "lists a certain amount of quotes",
 	async execute(client, message, commandName, arguments, Discord) {
 		// variables

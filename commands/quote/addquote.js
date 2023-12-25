@@ -7,6 +7,7 @@ module.exports = {
 	name: 'addquote',
 	aliases: [],
 	permissions: [],
+	help: '!addquote [Quote]',
 	description: 'Adds a quote to the database',
 	async execute(client, message, commandName, arguments, Discord) {
 		// if sends nothing then nothing happens and warns user

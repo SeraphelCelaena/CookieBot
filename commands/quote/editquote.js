@@ -6,6 +6,7 @@ module.exports = {
 	name: 'editquote',
 	aliases: [],
 	permissions: [],
+	help: '!editquote [Quote Number] [New Quote]',
 	description: 'edits a quote.',
 	async execute(client, message, commandName, arguments, Discord) {
 		// variables

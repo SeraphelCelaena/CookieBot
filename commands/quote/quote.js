@@ -7,6 +7,7 @@ module.exports = {
 	name: 'quote',
 	aliases: ['q'],
 	permissions: [],
+	help: '!quote <Quote Number>',
 	description: "shows quotes",
 	async execute(client, message, commandName, arguments, Discord) {
 		// variables
