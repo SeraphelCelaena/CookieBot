@@ -5,8 +5,6 @@ const customCommands = require('../../models/customCommandModel.js');
 module.exports = async (Discord, client, message) => {
 	const prefix = process.env.PREFIX;
 
-	// create a profile for gacha if it doesnt already exist.
-
 	// if a bot sends then nothing
 	if (!message.content.startsWith(prefix) || message.author.bot) return;
 	const arguments = message.content.slice(prefix.length).split(/ +/);
