@@ -12,7 +12,7 @@ module.exports = async (Discord, client, message) => {
 
 	// if a user just sends a ! then nothing
 	if (commandName == null || commandName.trim() == "") return;
-	if (commandName[0] == '!') return;
+	if (commandName[0] == '!' || commandName[0] == '?') return;
 
 	// Checks for custom commands
 	const customCommand = await customCommands.where({guildID: message.guild.id, customCommandName: commandName}).findOne();

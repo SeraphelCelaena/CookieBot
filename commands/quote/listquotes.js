@@ -18,6 +18,9 @@ module.exports = {
 		let sentMessage;
 		let continueInteraction = true;
 
+		// if there are no quotes then sends an error
+		if (quotesCount == 0) return message.channel.send("There are no quotes to show! <a:cripplingdepression:1186495357711044670>");
+
 		// String Validation
 		if (typeof quoteArgument == "string" && !Number.isInteger(parseInt(quoteArgument))) {
 			message.channel.send("Do not send a string!");
