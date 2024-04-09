@@ -7,7 +7,7 @@ module.exports = {
 	aliases: ['h'],
 	permissions: [],
 	help: '!help [Command Name]',
-	description: '[TODO] displays the command and how to use it.',
+	description: 'displays the command and how to use it.',
 	async execute(client, message, commandName, arguments, Discord) {
 		// variables
 		const commandsFolder = fs.readdirSync('./commands');
@@ -24,6 +24,7 @@ module.exports = {
 		}
 
 		// adds stuph to the embed text
+		embedText += `\n**Description:**\n${client.commands.get(command).description}`;
 		embedText += `\n**Usage:**\n\`${client.commands.get(command).help}\``;
 
 		// makes the embed
