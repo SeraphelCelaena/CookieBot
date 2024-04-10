@@ -15,6 +15,7 @@ module.exports = {
 		let helpHeader = "";
 		let embedText = "";
 
+		// if the user doesn't specify a command yells at user
 		if (!command) return message.channel.send("Specify a command you need help with!");
 
 		// checks if the command exists
