@@ -9,7 +9,7 @@ module.exports = {
 		if (arguments.join(" ").trim() == "" || arguments == null) {
 			return message.channel.send("There is nothing to convert!");
 		}
-		else if (arguments.length > 2) {
+		else if (arguments.length > 1) {
 			return message.channel.send("Too many arguments!");
 		}
 
