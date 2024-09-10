@@ -2,21 +2,23 @@ module.exports = {
 	name: "temperature",
 	aliases: ["temp"],
 	permissions: [],
-	help: "!temperature [TEMPERATURE] [C/F]",
+	help: "!temperature [TEMPERATURE][C/F]",
+	example: "!temperature 32c",
 	description: "Converts temperature from Celsius to Fahrenheit or vice versa",
 	async execute(client, message, commandName, arguments, Discord) {
 		if (arguments.join(" ").trim() == "" || arguments == null) {
 			return message.channel.send("There is nothing to convert!");
-		}
-		else if (arguments.length < 2) {
-			return message.channel.send("Please provide a temperature and a conversion type!");
 		}
 		else if (arguments.length > 2) {
 			return message.channel.send("Too many arguments!");
 		}
 
 		let temp = arguments[0];
-		let conversionType = arguments[1].toLowerCase();
+		let conversionType;
+		if (temp[temp.length - 1] == "f" || temp[temp.length - 1] == "c") {
+			conversionType = temp[temp.length - 1];
+			temp = temp.slice(0, temp.length - 1);
+		}
 
 		if (isNaN(temp)) {
 			return message.channel.send("Please provide a valid number!");
