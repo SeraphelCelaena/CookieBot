@@ -37,6 +37,7 @@ module.exports = {
 		// loops through aliases
 		embedText += `**Aliases**: `;
 		for (var alias of commandSearch.aliases) {
+
 			embedText += `\`${alias}\` `;
 		}
 
@@ -44,10 +45,12 @@ module.exports = {
 		embedText += `\n**Description:**\n${commandSearch.description}\n`;
 		embedText += `\n**Usage:**\n\`${commandSearch.help}\``;
 
+
 		// makes the embed
 		helpEmbed
 			.setColor(0xFF1199)
 			.addFields({name: helpHeader, value: embedText});
+
 
 		// sends embed
 		message.channel.send({embeds: [helpEmbed]});
