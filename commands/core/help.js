@@ -1,6 +1,6 @@
 // imports
-const fs = require('fs');
 const {EmbedBuilder} = require('discord.js');
+require('dotenv').config();
 
 module.exports = {
 	name: 'help',
@@ -10,37 +10,47 @@ module.exports = {
 	description: 'displays the command and how to use it.',
 	async execute(client, message, commandName, arguments, Discord) {
 		// variables
-		const commandsFolder = fs.readdirSync('./commands');
 		const helpEmbed = new EmbedBuilder();
 		const command = arguments[0];
+		let helpHeader = "";
 		let embedText = "";
 
+		// if the user doesn't specify a command yells at user
 		if (!command) return message.channel.send("Specify a command you need help with!");
 
-		let foundCommand = null;
-		client.commands.forEach(cmd => {
-			if (cmd.name == command || cmd.aliases.includes(command)) {
-				foundCommand = cmd;
-			}
-		})
+		// checks if the command exists
+		let commandSearch = client.commands.get(command);
+		if (!commandSearch) {
+			client.commands.map((cmd) => {
+				if (cmd.aliases.includes(command)) {
+					commandSearch = cmd;
+					return;
+				}
+			});
+		}
 
-		if (!foundCommand) return message.channel.send("Command not found!");
+		// if the command still doesn't exist
+		if (!commandSearch) return message.channel.send("That command does not exist!");
+
+		helpHeader = `Command Info: ${process.env.PREFIX}${commandSearch.name}`;
 
 		// loops through aliases
 		embedText += `**Aliases**: `;
-		for (var alias of foundCommand.aliases) {
+		for (var alias of commandSearch.aliases) {
+
 			embedText += `\`${alias}\` `;
 		}
 
 		// adds stuph to the embed text
-		if (foundCommand.description) embedText += `\n**Description:**\n${foundCommand.description}`;
-		if (foundCommand.help) embedText += `\n**Usage:**\n\`${foundCommand.help}\``;
-		if (foundCommand.example) embedText += `\n**Example:**\n\`${foundCommand.example}\``;
+		embedText += `\n**Description:**\n${commandSearch.description}\n`;
+		embedText += `\n**Usage:**\n\`${commandSearch.help}\``;
+
 
 		// makes the embed
 		helpEmbed
 			.setColor(0xFF1199)
-			.addFields({name: foundCommand.name, value: embedText});
+			.addFields({name: helpHeader, value: embedText});
+
 
 		// sends embed
 		message.channel.send({embeds: [helpEmbed]});
