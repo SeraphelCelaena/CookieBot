@@ -2,7 +2,7 @@ module.exports = {
 	name: "temperature",
 	aliases: ["temp"],
 	permissions: [],
-	help: "!temperature [TEMPERATURE][C/F]",
+	help: "!temperature [Temperature][C/F]",
 	example: "!temperature 32c",
 	description: "Converts temperature from Celsius to Fahrenheit or vice versa",
 	async execute(client, message, commandName, arguments, Discord) {
