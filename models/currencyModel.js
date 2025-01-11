@@ -13,11 +13,8 @@ currencySchema.statics.updateCurrency = async function() {
 	if (!currentCurrency || Date.now() - currentCurrency.updatedAt.getTime() > 86400000) {
 		const data = await getCurrencies();
 
-		const currencies = new this({
-			currencies: JSON.stringify(data)
-		});
-		await this.where({_id: data._id}).updateOne(currencies, {upsert: true});
-		return JSON.parse(currencies.currencies);
+		await this.findOneAndUpdate({}, {currencies: JSON.stringify(data)}, {upsert: true});
+		return JSON.parse(data);
 	}
 }
 
