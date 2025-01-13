@@ -14,7 +14,6 @@ currencySchema.statics.updateCurrency = async function() {
 		const data = await getCurrencies();
 
 		await this.findOneAndUpdate({}, {currencies: JSON.stringify(data)}, {upsert: true});
-		return JSON.parse(data);
 	}
 }
 
